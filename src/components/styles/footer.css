@@ -1,0 +1,16 @@
+.footer-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .footer-icons > a {
+    margin: 0 10px;
+    color:black;
+  }
+
+  .footer-icons > a:hover {
+    opacity: 0.6;
+  }
+  
