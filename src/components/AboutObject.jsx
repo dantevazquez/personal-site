@@ -8,7 +8,7 @@ function AboutObject({calculateGroundHeight}) {
             style={{
                 position: 'absolute',
                 left: '1000px',
-                bottom: `${110 + calculateGroundHeight(1000)}px`, // Adjust the box's position based on the ground height
+                bottom: `${110 + calculateGroundHeight(1000)}px`, 
                 animation: 'coin-spin 2s linear infinite' // Add a coin spinning animation
             }}
             size={50}

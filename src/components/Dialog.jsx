@@ -28,7 +28,7 @@ function Dialog({ page, position, setShowDialog, calculateGroundHeight }) {
             }}>
     
             <div>
-                <p>Naviagte to {page}?</p>
+                <p>Naviagte to the {page} page?</p>
                 <div style={{textAlign: 'center'}}>
                     <button style={{cursor:'pointer'}} onClick={handleYesClick}>Yes</button>
                     <button style={{cursor:'pointer'}}onClick={handleNoClick}>No</button>

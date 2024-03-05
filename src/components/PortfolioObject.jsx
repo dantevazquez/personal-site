@@ -8,11 +8,9 @@ function PortfolioObject({ calculateGroundHeight }) {
             style={{
                 position: 'absolute',
                 left: '2000px',
-                bottom: `${110 + calculateGroundHeight(2000)}px`, // Adjust the box's position based on the ground height
-                animation: 'coin-spin 2s linear infinite' 
-                // width: '50px',
-                // height: '50px',
-                // backgroundColor: 'green',
+                bottom: `${110 + calculateGroundHeight(2000)}px`,
+                animation: 'coin-spin 2s linear infinite'
+
             }}
             size={50}
         />

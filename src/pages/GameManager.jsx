@@ -7,6 +7,7 @@ import 'doodle.css/doodle.css'
 import HomeInfo from '../components/HomeInfo';
 import INFO from '../data/user';
 import Dialog from '../components/Dialog';
+import Fluff from '../components/Fluff';
 
 const GameManager = ({ isMuted, position, setPosition, theme}) => {
     const halfScreenSize = window.innerWidth / 2; 
@@ -40,18 +41,21 @@ const GameManager = ({ isMuted, position, setPosition, theme}) => {
     }, [showDialog]);
 
     // Check collision with boxes
+    //Dont judge, I had to hardcode beacause react is not a game engine and 
+    //performance was getting rough with modularied code xD
     useEffect(() => {
         console.log("current pos", position);
         //about object collision
         if (position === 990 || position === 1020) {
-            console.log('Box 1 touched!');
+
+            //if player is walking to the right
             if (position === 990 && direction === 'right') {
                 setPosition(1000);
                 setShowDialog(true); 
                 setDialogPage('about')
-                console.log("ddd", isMuted)
                 !isMuted ? collectAudio.play() : null;
             }
+            //if player is walking to the left
             else if(position === 1020 && direction === 'left'){
                 setPosition(1000);
                 setShowDialog('true');
@@ -59,15 +63,16 @@ const GameManager = ({ isMuted, position, setPosition, theme}) => {
                 !isMuted ? collectAudio.play() : null;
             }
 
-            // portfolio object collision
+        // portfolio object collision
         } else if (position === 1990 || position == 2020) {
-            console.log('Box 2 touched!');
+            //if player is walking to the right
             if (position === 1990 && direction === 'right') {
                 setPosition(2000);
                 setShowDialog(true);
                 setDialogPage('projects')
                 !isMuted ? collectAudio.play() : null;
             }
+            //if player is walking to the left
             else if(position === 2020 && direction === 'left') {
                 setPosition(2000);
                 setShowDialog(true);
@@ -103,7 +108,7 @@ const GameManager = ({ isMuted, position, setPosition, theme}) => {
                 <HomeInfo />
 
                 {showDialog && <Dialog page={dialogPage} position={position} setShowDialog={setShowDialog} calculateGroundHeight={calculateGroundHeight}/>}
-
+                <Fluff/>
             </div>
 
         </div>

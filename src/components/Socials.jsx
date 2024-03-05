@@ -45,9 +45,9 @@ const Socials = () => {
             </div>
 
             <div className="resume">
-                <div className="resume-wrapper">
+                <a href={INFO.about.resume} download='dante_vazquez_resume' className="resume-wrapper">
                     <button>Download resume</button>
-                </div>
+                </a>
             </div>
         </div>
     );
