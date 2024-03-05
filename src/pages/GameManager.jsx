@@ -18,6 +18,30 @@ const GameManager = ({ isMuted, position, setPosition, theme}) => {
     const [dialogPage, setDialogPage] = useState('');
     const collectAudio = new Audio(INFO.sounds.eating);
 
+    const handleTouchStart = (e) => {
+        // Get the touch position
+        const touchX = e.touches[0].clientX;
+
+        // Determine which half of the screen was touched
+        if (touchX < window.innerWidth / 2) {
+            // Left half of the screen was touched
+            setPosition((prevPos) => Math.max(prevPos - stepSize, initialPosition));
+            setDirection('left');
+        } else {
+            // Right half of the screen was touched
+            setPosition((prevPos) => prevPos + stepSize);
+            setDirection('right');
+        }
+    };
+
+    // Attach event listener for touch events
+    useEffect(() => {
+        window.addEventListener('touchstart', handleTouchStart);
+        return () => {
+            window.removeEventListener('touchstart', handleTouchStart);
+        };
+    }, []);
+
     // Handle arrow key presses
     const handleKeyPress = (e) => {
         if ((e.key === 'd' || e.key === 'ArrowRight') && !showDialog) {
