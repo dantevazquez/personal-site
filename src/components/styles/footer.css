@@ -1,16 +1,17 @@
 .footer-container {
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .footer-icons > a {
-    margin: 0 10px;
-    color:black;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 6vh;
+}
 
-  .footer-icons > a:hover {
-    opacity: 0.6;
-  }
-  
+.footer-icons > a {
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.footer-icons > a:hover {
+  opacity: 0.6;
+}
+
+

@@ -2,19 +2,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background-color: #f8f9fa;
-    height: 10vh;
+    height: 12vh;
   }
   
   .logo-container {
     font-size: 1.5em;
+    background-color: transparent;
   }
 
   .logo-container img {
     height: 120px; /* Adjust as needed */
     width: auto; /* Maintain aspect ratio */
     border: none;
+  }
+
+  .logo-container img:hover{
+    opacity: 0.6;
   }
   .nav-button a {
     text-decoration: none;
@@ -27,8 +30,6 @@
   }
   
   .nav-button {
-    background-color: #007bff;
-    color: white;
     border: none;
     padding: 10px 20px;
     text-align: center;
@@ -40,10 +41,10 @@
     cursor: pointer;
   }
   
-  .nav-button:hover {
+  /* .nav-button:hover {
     background-color: white; 
     color: black; 
-  }
+  } */
   
   /* Responsive layout - makes the menu and the content stack on top of each other */
   @media (max-width: 600px) {

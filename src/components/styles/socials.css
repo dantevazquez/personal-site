@@ -1,0 +1,47 @@
+.social,
+.resume-wrapper {
+	display: flex;
+	padding-bottom: 20px;
+}
+
+.social a,
+.resume-wrapper a {
+	text-decoration: none;
+}
+
+.social-icon {
+	font-size: 15px;
+}
+
+.social-text {
+	padding-left: 30px;
+	margin-top: -20px;
+	font-weight: 600;
+	font-size: 14px;
+
+}
+
+.social:hover{
+    opacity: 0.6;
+}
+
+.resume::before {
+	content: "";
+	display: block;
+	padding-top: 20px;
+	border-top: 3px solid;
+	margin-top: 20px;
+}
+
+.resume-wrapper {
+    /* background-color: inherit; */
+	padding-top: 20px;
+}
+
+.resume-wrapper button{
+    cursor: pointer;
+}
+
+.resume-wrapper button:hover{
+    opacity: 0.6;
+}

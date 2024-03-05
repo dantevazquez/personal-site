@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Ground({calculateGroundHeight}) {
+function Ground({calculateGroundHeight, theme}) {
 
     const maxGameSize = 5000;
 
@@ -16,7 +16,7 @@ function Ground({calculateGroundHeight}) {
                         width: `4px`,
                         height: '4px',
                         borderRadius: '50px',
-                        backgroundColor: 'black',
+                        backgroundColor: theme === 'doodle' ? 'black' : 'white'
                     }}
                 />
             );

@@ -5,23 +5,29 @@ import Player from '../components/Player';
 import Ground from '../components/Ground';
 import 'doodle.css/doodle.css'
 import HomeInfo from '../components/HomeInfo';
+import INFO from '../data/user';
+import Dialog from '../components/Dialog';
 
-const GameManager = () => {
-    const halfScreenSize = window.innerWidth / 2; // Half of the screen size
-    const stepSize = 10; // How much the stickman moves per step
+const GameManager = ({ isMuted, position, setPosition, theme}) => {
+    const halfScreenSize = window.innerWidth / 2; 
+    const stepSize = 10; 
     const initialPosition = Math.round(halfScreenSize / stepSize) * stepSize;
-    const [position, setPosition] = useState(initialPosition); // Stickman's position on the line
     const [direction, setDirection] = useState('right');
+    const [showDialog, setShowDialog] = useState(false);
+    const [dialogPage, setDialogPage] = useState('');
+    const collectAudio = new Audio(INFO.sounds.eating);
 
     // Handle arrow key presses
     const handleKeyPress = (e) => {
-        if (e.key === 'd' || e.key === 'ArrowRight') {
+        if ((e.key === 'd' || e.key === 'ArrowRight') && !showDialog) {
             setPosition((prevPos) => prevPos + stepSize);
             setDirection('right');
-        } else if (e.key === 'a' || e.key === "ArrowLeft") {
+
+        } else if ((e.key === 'a' || e.key === "ArrowLeft") && !showDialog) {
             // Prevent moving past the left screen boundary
             setPosition((prevPos) => Math.max(prevPos - stepSize, initialPosition));
             setDirection('left');
+            console.log(isMuted);
         }
     };
 
@@ -31,29 +37,42 @@ const GameManager = () => {
         return () => {
             window.removeEventListener('keydown', handleKeyPress);
         };
-    }, []);
+    }, [showDialog]);
 
     // Check collision with boxes
     useEffect(() => {
         console.log("current pos", position);
         //about object collision
-        if (position === 990 || position === 1040) {
+        if (position === 990 || position === 1020) {
             console.log('Box 1 touched!');
-            if (position === 990) {
-                setPosition(1050);
+            if (position === 990 && direction === 'right') {
+                setPosition(1000);
+                setShowDialog(true); 
+                setDialogPage('about')
+                console.log("ddd", isMuted)
+                !isMuted ? collectAudio.play() : null;
             }
-            else {
-                setPosition(980);
+            else if(position === 1020 && direction === 'left'){
+                setPosition(1000);
+                setShowDialog('true');
+                setDialogPage('about')
+                !isMuted ? collectAudio.play() : null;
             }
 
             // portfolio object collision
-        } else if (position === 1990 || position == 2040) {
+        } else if (position === 1990 || position == 2020) {
             console.log('Box 2 touched!');
-            if (position === 1990) {
-                setPosition(2050);
+            if (position === 1990 && direction === 'right') {
+                setPosition(2000);
+                setShowDialog(true);
+                setDialogPage('projects')
+                !isMuted ? collectAudio.play() : null;
             }
-            else {
-                setPosition(1980);
+            else if(position === 2020 && direction === 'left') {
+                setPosition(2000);
+                setShowDialog(true);
+                setDialogPage('projects')
+                !isMuted ? collectAudio.play() : null;
             }
         }
     }, [position]);
@@ -63,16 +82,16 @@ const GameManager = () => {
         return 100 * Math.sin(x / 1000); // Adjust the amplitude and frequency as needed
     };
     return (
-        <div style={{ position: 'relative', height: '80vh', overflow: 'hidden', backgroundColor: '#0094c6' }}>
+        <div style={{ position: 'relative', height: '80vh', overflow: 'hidden'}}>
 
             <div style={{
                 width: '100%',
                 height: '100%',
                 position: 'absolute',
                 bottom: 0,
-                transform: `translateX(${halfScreenSize - position}px)` // Camera follows the stickman
+                transform: `translateX(${halfScreenSize - position}px)`,
             }}>
-                <Ground calculateGroundHeight={calculateGroundHeight} />
+                <Ground calculateGroundHeight={calculateGroundHeight} theme={theme} />
                 <AboutObject
                     calculateGroundHeight={calculateGroundHeight}
                 />
@@ -81,8 +100,12 @@ const GameManager = () => {
                 />
 
                 <Player position={position} calculateGroundHeight={calculateGroundHeight} direction={direction} />
-                <HomeInfo/> 
+                <HomeInfo />
+
+                {showDialog && <Dialog page={dialogPage} position={position} setShowDialog={setShowDialog} calculateGroundHeight={calculateGroundHeight}/>}
+
             </div>
+
         </div>
 
     );
