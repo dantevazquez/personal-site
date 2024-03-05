@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import AboutObject from '../components/AboutObject';
 import PortfolioObject from '../components/PortfolioObject';
 import Player from '../components/Player';
@@ -9,39 +9,74 @@ import INFO from '../data/user';
 import Dialog from '../components/Dialog';
 import Fluff from '../components/Fluff';
 
-const GameManager = ({ isMuted, position, setPosition, theme}) => {
-    const halfScreenSize = window.innerWidth / 2; 
-    const stepSize = 10; 
+const GameManager = ({ isMuted, position, setPosition, theme }) => {
+    const halfScreenSize = window.innerWidth / 2;
+    const stepSize = 10;
     const initialPosition = Math.round(halfScreenSize / stepSize) * stepSize;
     const [direction, setDirection] = useState('right');
     const [showDialog, setShowDialog] = useState(false);
     const [dialogPage, setDialogPage] = useState('');
     const collectAudio = new Audio(INFO.sounds.eating);
 
+    const touchInterval = useRef(null);
+
+    // Handle touch start
     const handleTouchStart = (e) => {
         // Get the touch position
+        e.preventDefault();
         const touchX = e.touches[0].clientX;
 
+        // Clear any existing interval
+        if (touchInterval.current) {
+            clearInterval(touchInterval.current);
+        }
+
+        if (showDialog) {
+            return; // If showDialog is true, don't allow the user to walk
+        }
         // Determine which half of the screen was touched
+
         if (touchX < window.innerWidth / 2) {
             // Left half of the screen was touched
-            setPosition((prevPos) => Math.max(prevPos - stepSize, initialPosition));
+            touchInterval.current = setInterval(() => {
+                setPosition((prevPos) => Math.max(prevPos - stepSize, initialPosition));
+            }, 100); // Adjust the interval as needed
             setDirection('left');
         } else {
             // Right half of the screen was touched
-            setPosition((prevPos) => prevPos + stepSize);
+            touchInterval.current = setInterval(() => {
+                setPosition((prevPos) => prevPos + stepSize);
+            }, 100); // Adjust the interval as needed
             setDirection('right');
         }
+
+
+    };
+
+    // Handle touch end
+    const handleTouchEnd = () => {
+        // Clear the interval
+        if (touchInterval.current) {
+            clearInterval(touchInterval.current);
+            touchInterval.current = null;
+        }
+    };
+
+    const handleTouchMove = (e) => {
+        e.preventDefault(); // This will prevent the default zoom/magnification effect
     };
 
     // Attach event listener for touch events
     useEffect(() => {
         window.addEventListener('touchstart', handleTouchStart);
+        window.addEventListener('touchend', handleTouchEnd);
+        window.addEventListener('touchmove', handleTouchMove); // Add this line
         return () => {
             window.removeEventListener('touchstart', handleTouchStart);
+            window.removeEventListener('touchend', handleTouchEnd);
+            window.removeEventListener('touchmove', handleTouchMove); // And this line
         };
-    }, []);
-
+    }, [showDialog]);
     // Handle arrow key presses
     const handleKeyPress = (e) => {
         if ((e.key === 'd' || e.key === 'ArrowRight') && !showDialog) {
@@ -106,12 +141,13 @@ const GameManager = ({ isMuted, position, setPosition, theme}) => {
         }
     }, [position]);
 
+
     // Function to calculate the y-value of the ground at a given x-position
     const calculateGroundHeight = (x) => {
         return 100 * Math.sin(x / 1000); // Adjust the amplitude and frequency as needed
     };
     return (
-        <div style={{ position: 'relative', height: '80vh', overflow: 'hidden'}}>
+        <div style={{ position: 'relative', height: '80vh', overflow: 'hidden' }}>
 
             <div style={{
                 width: '100%',
@@ -131,8 +167,8 @@ const GameManager = ({ isMuted, position, setPosition, theme}) => {
                 <Player position={position} calculateGroundHeight={calculateGroundHeight} direction={direction} />
                 <HomeInfo />
 
-                {showDialog && <Dialog page={dialogPage} position={position} setShowDialog={setShowDialog} calculateGroundHeight={calculateGroundHeight}/>}
-                <Fluff/>
+                {showDialog && <Dialog page={dialogPage} position={position} setShowDialog={setShowDialog} calculateGroundHeight={calculateGroundHeight} />}
+                <Fluff />
             </div>
 
         </div>
