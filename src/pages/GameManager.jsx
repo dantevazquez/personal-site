@@ -17,25 +17,31 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
     const [showDialog, setShowDialog] = useState(false);
     const [dialogPage, setDialogPage] = useState('');
     const collectAudio = new Audio(INFO.sounds.eating);
-
     const touchInterval = useRef(null);
+    const showDialogRef = useRef(showDialog); // Add this line
+
+    // Update the ref whenever showDialog changes
+    useEffect(() => {
+        showDialogRef.current = showDialog;
+    }, [showDialog]);
 
     // Handle touch start
     const handleTouchStart = (e) => {
-        // Get the touch position
         e.preventDefault();
+
+        //get touch pos
         const touchX = e.touches[0].clientX;
-    
+
         // Clear any existing interval
         if (touchInterval.current) {
             clearInterval(touchInterval.current);
         }
-    
+
         // Determine which half of the screen was touched
         if (touchX < window.innerWidth / 2) {
             // Left half of the screen was touched
             touchInterval.current = setInterval(() => {
-                if (showDialog) {
+                if (showDialogRef.current) {
                     clearInterval(touchInterval.current);
                     return;
                 }
@@ -45,7 +51,7 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
         } else {
             // Right half of the screen was touched
             touchInterval.current = setInterval(() => {
-                if (showDialog) {
+                if (showDialogRef.current) {
                     clearInterval(touchInterval.current);
                     return;
                 }
@@ -54,7 +60,7 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
             setDirection('right');
         }
     };
-    
+
     // Handle touch end
     const handleTouchEnd = () => {
         // Clear the interval
@@ -63,11 +69,12 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
             touchInterval.current = null;
         }
     };
-    
+
+    //This will prevent the default zoom/magnification effect
     const handleTouchMove = (e) => {
-        e.preventDefault(); // This will prevent the default zoom/magnification effect
+        e.preventDefault(); 
     };
-    
+
     // Attach event listener for touch events
     useEffect(() => {
         window.addEventListener('touchstart', handleTouchStart);
@@ -112,19 +119,19 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
             //if player is walking to the right
             if (position === 990 && direction === 'right') {
                 setPosition(1000);
-                setShowDialog(true); 
+                setShowDialog(true);
                 setDialogPage('about')
                 !isMuted ? collectAudio.play() : null;
             }
             //if player is walking to the left
-            else if(position === 1020 && direction === 'left'){
+            else if (position === 1020 && direction === 'left') {
                 setPosition(1000);
                 setShowDialog('true');
                 setDialogPage('about')
                 !isMuted ? collectAudio.play() : null;
             }
 
-        // portfolio object collision
+            // portfolio object collision
         } else if (position === 1990 || position == 2020) {
             //if player is walking to the right
             if (position === 1990 && direction === 'right') {
@@ -134,7 +141,7 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
                 !isMuted ? collectAudio.play() : null;
             }
             //if player is walking to the left
-            else if(position === 2020 && direction === 'left') {
+            else if (position === 2020 && direction === 'left') {
                 setPosition(2000);
                 setShowDialog(true);
                 setDialogPage('projects')
