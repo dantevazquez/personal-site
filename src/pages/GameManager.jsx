@@ -25,34 +25,36 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
         // Get the touch position
         e.preventDefault();
         const touchX = e.touches[0].clientX;
-
+    
         // Clear any existing interval
         if (touchInterval.current) {
             clearInterval(touchInterval.current);
         }
-
-        if (showDialog) {
-            return; // If showDialog is true, don't allow the user to walk
-        }
+    
         // Determine which half of the screen was touched
-
         if (touchX < window.innerWidth / 2) {
             // Left half of the screen was touched
             touchInterval.current = setInterval(() => {
+                if (showDialog) {
+                    clearInterval(touchInterval.current);
+                    return;
+                }
                 setPosition((prevPos) => Math.max(prevPos - stepSize, initialPosition));
             }, 100); // Adjust the interval as needed
             setDirection('left');
         } else {
             // Right half of the screen was touched
             touchInterval.current = setInterval(() => {
+                if (showDialog) {
+                    clearInterval(touchInterval.current);
+                    return;
+                }
                 setPosition((prevPos) => prevPos + stepSize);
             }, 100); // Adjust the interval as needed
             setDirection('right');
         }
-
-
     };
-
+    
     // Handle touch end
     const handleTouchEnd = () => {
         // Clear the interval
@@ -61,20 +63,20 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
             touchInterval.current = null;
         }
     };
-
+    
     const handleTouchMove = (e) => {
         e.preventDefault(); // This will prevent the default zoom/magnification effect
     };
-
+    
     // Attach event listener for touch events
     useEffect(() => {
         window.addEventListener('touchstart', handleTouchStart);
         window.addEventListener('touchend', handleTouchEnd);
-        window.addEventListener('touchmove', handleTouchMove); // Add this line
+        window.addEventListener('touchmove', handleTouchMove);
         return () => {
             window.removeEventListener('touchstart', handleTouchStart);
             window.removeEventListener('touchend', handleTouchEnd);
-            window.removeEventListener('touchmove', handleTouchMove); // And this line
+            window.removeEventListener('touchmove', handleTouchMove);
         };
     }, [showDialog]);
     // Handle arrow key presses
