@@ -1,7 +1,6 @@
 import React from 'react'
-import './styles/portfoliopage.css'
 import AllProjects from '../components/AllProjects'
-
+import './styles/portfoliopage.css'
 
 function PortfolioPage() {
   return (

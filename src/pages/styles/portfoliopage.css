@@ -9,6 +9,8 @@
 @media (max-width: 600px) {
 	.projects-container {
 		padding-top: 60px;
+		overflow: hidden;
+		height: 100%;
 	}
 
 	.projects-project {

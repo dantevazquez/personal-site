@@ -1,9 +1,7 @@
-import collectSound from '../assets/collect.wav';
 import eatingSound from '../assets/eating.mp3';
-import stepSound from '../assets/step.wav';
 import aboutImg from '../assets/about.png'
 import resume from '../assets/resume.pdf'
-
+import runSound from '../assets/run.ogg'
 
 const INFO = {
 	main: {
@@ -91,9 +89,21 @@ const INFO = {
 
 	sounds: {
 		eating: eatingSound,
-		collect: collectSound,
-		step: stepSound,
-	}
+		run: runSound,
+	},
+
+	collisionObjects: [
+        {
+            positions: [990, 1020],
+            newPosition: 1000,
+            dialogPage: 'about'
+        },
+        {
+            positions: [1990, 2020],
+            newPosition: 2000,
+            dialogPage: 'projects'
+        }
+    ],
 };
 
 export default INFO;

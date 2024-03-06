@@ -1,5 +1,5 @@
 import React from "react";
-import { IoLogoGithub, IoLogoLinkedin, IoIosMail, IoIosVolumeHigh, IoIosVolumeOff } from "react-icons/io";
+import { IoLogoGithub, IoLogoLinkedin, IoIosMail} from "react-icons/io";
 import INFO from "../data/user";
 import 'doodle.css/doodle.css'
 import "./styles/socials.css";

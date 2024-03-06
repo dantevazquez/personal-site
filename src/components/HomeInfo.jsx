@@ -10,5 +10,4 @@ function HomeInfo() {
     </div>
   )
 }
-
 export default HomeInfo

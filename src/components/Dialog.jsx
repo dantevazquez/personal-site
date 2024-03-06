@@ -1,7 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
-
 function Dialog({ page, position, setShowDialog, calculateGroundHeight }) {
     const navigate = useNavigate();
 

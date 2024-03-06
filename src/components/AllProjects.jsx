@@ -1,9 +1,6 @@
 import React from "react";
-
 import Project from "./Project";
-
 import INFO from "../data/user";
-
 import "./styles/allProjects.css";
 
 const AllProjects = () => {

@@ -3,11 +3,11 @@ import AboutObject from '../components/AboutObject';
 import PortfolioObject from '../components/PortfolioObject';
 import Player from '../components/Player';
 import Ground from '../components/Ground';
-import 'doodle.css/doodle.css'
 import HomeInfo from '../components/HomeInfo';
 import INFO from '../data/user';
 import Dialog from '../components/Dialog';
 import Fluff from '../components/Fluff';
+import 'doodle.css/doodle.css'
 
 const GameManager = ({ isMuted, position, setPosition, theme }) => {
     const halfScreenSize = window.innerWidth / 2;
@@ -17,144 +17,105 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
     const [showDialog, setShowDialog] = useState(false);
     const [dialogPage, setDialogPage] = useState('');
     const collectAudio = new Audio(INFO.sounds.eating);
+    const runAudio = new Audio(INFO.sounds.run);
     const touchInterval = useRef(null);
-    const showDialogRef = useRef(showDialog); // Add this line
+    const showDialogRef = useRef(showDialog);
+    const maxDistance = 3500; //max distance user can walk
 
-    // Update the ref whenever showDialog changes
-    useEffect(() => {
-        showDialogRef.current = showDialog;
-    }, [showDialog]);
+    //handles both touch and keyboard inputs
+    const handleInput = (inputDirection) => {
+        if (showDialogRef.current) {
+            clearInterval(touchInterval.current);
+            return;
+        }
+        setPosition((prevPos) => {
+            if (inputDirection === 'left') {
+                return Math.max(prevPos - stepSize, initialPosition);
+            } else {
+                return Math.min(prevPos + stepSize, maxDistance);
+            }
+        });
+        setDirection(inputDirection);
+        runAudio.play();
+    };
 
-    // Handle touch start
+    //helper functuon to handle touch
     const handleTouchStart = (e) => {
         e.preventDefault();
-
-        //get touch pos
         const touchX = e.touches[0].clientX;
-
-        // Clear any existing interval
         if (touchInterval.current) {
             clearInterval(touchInterval.current);
         }
-
-        // Determine which half of the screen was touched
-        if (touchX < window.innerWidth / 2) {
-            // Left half of the screen was touched
-            touchInterval.current = setInterval(() => {
-                if (showDialogRef.current) {
-                    clearInterval(touchInterval.current);
-                    return;
-                }
-                setPosition((prevPos) => Math.max(prevPos - stepSize, initialPosition));
-            }, 100); // Adjust the interval as needed
-            setDirection('left');
-        } else {
-            // Right half of the screen was touched
-            touchInterval.current = setInterval(() => {
-                if (showDialogRef.current) {
-                    clearInterval(touchInterval.current);
-                    return;
-                }
-                setPosition((prevPos) => prevPos + stepSize);
-            }, 100); // Adjust the interval as needed
-            setDirection('right');
-        }
+        const inputDirection = touchX < window.innerWidth / 2 ? 'left' : 'right';
+        touchInterval.current = setInterval(() => handleInput(inputDirection), 100);
     };
 
-    // Handle touch end
+    //helper functuon to handle touch release
     const handleTouchEnd = () => {
-        // Clear the interval
         if (touchInterval.current) {
             clearInterval(touchInterval.current);
             touchInterval.current = null;
         }
     };
 
-    //This will prevent the default zoom/magnification effect
+    //this is just to prevent unwanted behavior from mobile browsers
     const handleTouchMove = (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
     };
 
-    // Attach event listener for touch events
+    //helper function to handle keyboard inputs
+    const handleKeyPress = (e) => {
+        if (showDialog) return;
+        const keyToDirection = {
+            'd': 'right',
+            'ArrowRight': 'right',
+            'a': 'left',
+            'ArrowLeft': 'left'
+        };
+        const inputDirection = keyToDirection[e.key];
+        if (inputDirection) {
+            handleInput(inputDirection);
+        }
+    };
+
+    //input listeners
     useEffect(() => {
+        showDialogRef.current = showDialog;
+        window.addEventListener('keydown', handleKeyPress);
         window.addEventListener('touchstart', handleTouchStart);
         window.addEventListener('touchend', handleTouchEnd);
         window.addEventListener('touchmove', handleTouchMove);
         return () => {
+            window.removeEventListener('keydown', handleKeyPress);
             window.removeEventListener('touchstart', handleTouchStart);
             window.removeEventListener('touchend', handleTouchEnd);
             window.removeEventListener('touchmove', handleTouchMove);
         };
     }, [showDialog]);
-    // Handle arrow key presses
-    const handleKeyPress = (e) => {
-        if ((e.key === 'd' || e.key === 'ArrowRight') && !showDialog) {
-            setPosition((prevPos) => prevPos + stepSize);
-            setDirection('right');
 
-        } else if ((e.key === 'a' || e.key === "ArrowLeft") && !showDialog) {
-            // Prevent moving past the left screen boundary
-            setPosition((prevPos) => Math.max(prevPos - stepSize, initialPosition));
-            setDirection('left');
-            console.log(isMuted);
-        }
-    };
-
-    // Attach event listener for arrow keys
-    useEffect(() => {
-        window.addEventListener('keydown', handleKeyPress);
-        return () => {
-            window.removeEventListener('keydown', handleKeyPress);
-        };
-    }, [showDialog]);
-
-    // Check collision with boxes
-    //Dont judge, I had to hardcode beacause react is not a game engine and 
-    //performance was getting rough with modularied code xD
+    //detect collisions
     useEffect(() => {
         console.log("current pos", position);
-        //about object collision
-        if (position === 990 || position === 1020) {
-
-            //if player is walking to the right
-            if (position === 990 && direction === 'right') {
-                setPosition(1000);
-                setShowDialog(true);
-                setDialogPage('about')
-                !isMuted ? collectAudio.play() : null;
+        // Check each collision object
+        INFO.collisionObjects.forEach(obj => {
+            if (obj.positions.includes(position)) {
+                // If player is walking towards the object
+                if ((position === obj.positions[0] && direction === 'right') ||
+                    (position === obj.positions[1] && direction === 'left')) {
+                    setPosition(obj.newPosition);
+                    setShowDialog(true);
+                    setDialogPage(obj.dialogPage);
+                    !isMuted ? collectAudio.play() : null;
+                }
             }
-            //if player is walking to the left
-            else if (position === 1020 && direction === 'left') {
-                setPosition(1000);
-                setShowDialog('true');
-                setDialogPage('about')
-                !isMuted ? collectAudio.play() : null;
-            }
-
-            // portfolio object collision
-        } else if (position === 1990 || position == 2020) {
-            //if player is walking to the right
-            if (position === 1990 && direction === 'right') {
-                setPosition(2000);
-                setShowDialog(true);
-                setDialogPage('projects')
-                !isMuted ? collectAudio.play() : null;
-            }
-            //if player is walking to the left
-            else if (position === 2020 && direction === 'left') {
-                setPosition(2000);
-                setShowDialog(true);
-                setDialogPage('projects')
-                !isMuted ? collectAudio.play() : null;
-            }
-        }
+        });
     }, [position]);
-
 
     // Function to calculate the y-value of the ground at a given x-position
     const calculateGroundHeight = (x) => {
-        return 100 * Math.sin(x / 1000); // Adjust the amplitude and frequency as needed
+        return 100 * Math.sin(x / 1000); // Adjust the amplitude and frequency 
     };
+
     return (
         <div style={{ position: 'relative', height: '80vh', overflow: 'hidden' }}>
 
@@ -172,17 +133,22 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
                 <PortfolioObject
                     calculateGroundHeight={calculateGroundHeight}
                 />
-
-                <Player position={position} calculateGroundHeight={calculateGroundHeight} direction={direction} />
+                <Player
+                    position={position}
+                    calculateGroundHeight={calculateGroundHeight}
+                    direction={direction}
+                />
                 <HomeInfo />
-
-                {showDialog && <Dialog page={dialogPage} position={position} setShowDialog={setShowDialog} calculateGroundHeight={calculateGroundHeight} />}
+                {showDialog && <Dialog
+                    page={dialogPage}
+                    position={position}
+                    setShowDialog={setShowDialog}
+                    calculateGroundHeight={calculateGroundHeight}
+                />}
                 <Fluff />
             </div>
 
         </div>
-
     );
 };
-
 export default GameManager;
