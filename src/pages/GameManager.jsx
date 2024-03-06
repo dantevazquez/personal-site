@@ -36,7 +36,10 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
             }
         });
         setDirection(inputDirection);
-        runAudio.play();
+        if (!isMuted) {
+            runAudio.play().catch(error => console.log(error));
+        }
+
     };
 
     //helper functuon to handle touch
