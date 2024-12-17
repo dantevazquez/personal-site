@@ -24,7 +24,7 @@ const INFO = {
 	about: {
 		title: "Hi! My name is Dante Vazquez",
 		description:
-			"I am currently a Equipment Maintenance Technician at Google via Astreya, but my goal is to transition into a career in Software Development. I've refined my coding skills by earning an Associate's Degree in Computer Science from Saddleback College and completing a coding bootcamp at Fullstack Academy. Additionally, I am actively working on personal projects to stay up-to-date with new technologies and tools.",
+			"I currently work as an Equipment Maintenance Technician at Google through Astreya, where I provide IT support and technical assistance. My goal is to transition into a career in Software Development. To achieve this, I earned an Associate's Degree in Computer Science from Saddleback College and completed a coding bootcamp at Fullstack Academy. I continue to enhance my coding skills by actively working on personal projects and staying up-to-date with the latest technologies and tools.",
 
 		image: aboutImg,
 		resume: resume,
