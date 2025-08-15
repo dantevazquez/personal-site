@@ -4,7 +4,7 @@ function Fluff() {
     return (
         <div style={{
             position:'absolute',
-            left: '3000px',
+            left: '3500px',
             top: '200px',      
         }}>
             <p>The function of the ground is: f(x)=100sin(x/1000)</p>

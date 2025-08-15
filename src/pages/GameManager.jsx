@@ -20,7 +20,7 @@ const GameManager = ({ isMuted, position, setPosition, theme }) => {
     const runAudio = new Audio(INFO.sounds.run);
     const touchInterval = useRef(null);
     const showDialogRef = useRef(showDialog);
-    const maxDistance = 3500; //max distance user can walk
+    const maxDistance = 4000; //max distance user can walk
 
     //handles both touch and keyboard inputs
     const handleInput = (inputDirection) => {

@@ -102,13 +102,13 @@ const INFO = {
 
 	collisionObjects: [
         {
-            positions: [990, 1020],
-            newPosition: 1000,
+            positions: [1490, 1520],
+            newPosition: 1500,
             dialogPage: 'about'
         },
         {
-            positions: [1990, 2020],
-            newPosition: 2000,
+            positions: [2490, 2520],
+            newPosition: 2500,
             dialogPage: 'projects'
         }
     ],
