@@ -51,7 +51,7 @@ const INFO = {
 		{
 			title: "Restaurant Online Ordering",
 			description:
-				"App that allows a restaurant owner to set a menu and receive orders and payments via Stripe. App is also bundled with a restaurant order receive which can be shown upon request.",
+				"App that allows a restaurant owner to set a menu and receive orders and payments via Stripe. App is also bundled with a in-restaurant order receiver which can be shown upon request.",
 			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
 			linkText: "View Project",
 			link: "https://sparkly-llama-fc8a48.netlify.app/",
