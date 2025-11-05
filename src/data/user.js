@@ -49,11 +49,19 @@ const INFO = {
 			link: "https://swellcalculator.netlify.app",
 		},
 		{
+			title: "Restaurant Online Ordering",
+			description:
+				"App that allows a restaurant owner to set a menu and receive orders and payments via Stripe. App is also bundled with a restaurant order receive which can be shown upon request.",
+			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
+			linkText: "View Project",
+			link: "https://sparkly-llama-fc8a48.netlify.app/",
+		},
+		{
 			title: "Rotten Potatoes",
 			description:
 				"A movie review website where a user is view and write reviews on a catalog of over 10,000 movies. Implemented the frontend of this project using React-JS and the backend using Postgresql and Express JS",
 			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
-			linkText: "View Project",
+			linkText: "View Project (Not live. No money to host :( )",
 			link: "https://github.com/dantevazquez/Movie-Reviews",
 		},
 
@@ -62,7 +70,7 @@ const INFO = {
 			description:
 				"Recreated the game yahtzee using the C library raylib.",
 			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/cpp/cpp.png",
-			linkText: "View Project",
+			linkText: "View Project (Not live. No money to host)",
 			link: "https://github.com/dantevazquez/yahtzee",
 		},
 
@@ -80,7 +88,7 @@ const INFO = {
 			description:
 				"Website where users are able to build pokemon decks and share them. This was a group project I helped make during my time at FullStack Academy. ",
 			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
-			linkText: "View Project",
+			linkText: "View Project (Not live. No money to host)",
 			link: "https://github.com/dantevazquez/pokemon-react",
 		},
 		{
@@ -88,11 +96,11 @@ const INFO = {
 			description:
 				"Minecraft mini-game plugin",
 			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/java/java.png",
-			linkText: "View Project",
+			linkText: "View Project (Not live. No money to host)",
 			link: "https://github.com/dantevazquez/DestroyTheCore",
 		},
 
-	
+
 	],
 
 	sounds: {
@@ -101,17 +109,17 @@ const INFO = {
 	},
 
 	collisionObjects: [
-        {
-            positions: [1490, 1520],
-            newPosition: 1500,
-            dialogPage: 'about'
-        },
-        {
-            positions: [2490, 2520],
-            newPosition: 2500,
-            dialogPage: 'projects'
-        }
-    ],
+		{
+			positions: [1490, 1520],
+			newPosition: 1500,
+			dialogPage: 'about'
+		},
+		{
+			positions: [2490, 2520],
+			newPosition: 2500,
+			dialogPage: 'projects'
+		}
+	],
 };
 
 export default INFO;
