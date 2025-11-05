@@ -61,7 +61,7 @@ const INFO = {
 			description:
 				"A movie review website where a user is view and write reviews on a catalog of over 10,000 movies. Implemented the frontend of this project using React-JS and the backend using Postgresql and Express JS",
 			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
-			linkText: "View Project (Not live. No money to host :( )",
+			linkText: "View Project (Not live. No money to host)",
 			link: "https://github.com/dantevazquez/Movie-Reviews",
 		},
 
