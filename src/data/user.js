@@ -57,15 +57,6 @@ const INFO = {
 			link: "https://sparkly-llama-fc8a48.netlify.app/",
 		},
 		{
-			title: "Rotten Potatoes",
-			description:
-				"A movie review website where a user is view and write reviews on a catalog of over 10,000 movies. Implemented the frontend of this project using React-JS and the backend using Postgresql and Express JS",
-			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
-			linkText: "View Project (Not live. No money to host)",
-			link: "https://github.com/dantevazquez/Movie-Reviews",
-		},
-
-		{
 			title: "Yahtzee",
 			description:
 				"Recreated the game yahtzee using the C library raylib.",
@@ -73,7 +64,6 @@ const INFO = {
 			linkText: "View Project (Not live. No money to host)",
 			link: "https://github.com/dantevazquez/yahtzee",
 		},
-
 		{
 			title: "Personal Website",
 			description:
@@ -81,15 +71,6 @@ const INFO = {
 			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
 			linkText: "View Project",
 			link: "https://github.com/dantevazquez/personal-site",
-		},
-
-		{
-			title: "Pokemon Deck Builder",
-			description:
-				"Website where users are able to build pokemon decks and share them. This was a group project I helped make during my time at FullStack Academy. ",
-			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
-			linkText: "View Project (Not live. No money to host)",
-			link: "https://github.com/dantevazquez/pokemon-react",
 		},
 		{
 			title: "Destroy the Core",
@@ -99,8 +80,6 @@ const INFO = {
 			linkText: "View Project (Not live. No money to host)",
 			link: "https://github.com/dantevazquez/DestroyTheCore",
 		},
-
-
 	],
 
 	sounds: {
