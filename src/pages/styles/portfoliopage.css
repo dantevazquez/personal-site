@@ -1,0 +1,19 @@
+.projects-container {
+	display: flex;
+	flex-direction: column;
+	height: 80vh;
+	margin: 0;
+	overflow-y: scroll;
+}
+
+@media (max-width: 600px) {
+	.projects-container {
+		padding-top: 60px;
+		overflow: hidden;
+		height: 100%;
+	}
+
+	.projects-project {
+		width: calc(100% / 2);
+	}
+}

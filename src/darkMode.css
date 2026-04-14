@@ -1,0 +1,43 @@
+.dark {
+    background-color: #333;
+    color: white;
+}
+.doodle.dark .social-icon,
+.doodle.dark .social-text {
+    color: white;
+}
+
+.doodle.dark .social-icon:hover{
+    opacity: 0.6;
+}
+
+.doodle.dark .social-text:hover{
+    opacity: 0.6;
+}
+
+
+.doodle.dark button{
+    color: white;
+    
+}
+
+.doodle.dark .project-description{
+    color: white;
+}
+
+.doodle.dark .project-title{
+    color: white;
+}
+
+.doodle.dark .project-link-icon{
+    color: white;
+}
+
+.doodle.dark .project-link-text{
+    color: white;
+}
+
+.doodle button:hover{
+    opacity: 0.6;
+}
+
