@@ -39,12 +39,12 @@ const INFO = {
 			link: "https://play.google.com/store/apps/details?id=com.DevsDevelop.PocketSurf",
 		},
 		{
-			title: "Swell Calculator",
+			title: "Carey Sites",
 			description:
-				"Ocean wave/swell forecasting tool built with React and MaterialUI",
+				"Business where I create, host, and maintain websites for businesses",
 			logo: "https://cdn.jsdelivr.net/npm/programming-languages-logos/src/javascript/javascript.png",
 			linkText: "View Project",
-			link: "https://swellcalculator.netlify.app",
+			link: "https://careysites.com",
 		},
 		{
 			title: "Restaurant Online Ordering",
